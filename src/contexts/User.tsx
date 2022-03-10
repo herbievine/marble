@@ -29,15 +29,12 @@ const UserProvider: React.FC<{}> = ({ children }) => {
     );
 
     if (foundUser) {
-      setItem("uuid", foundUser.uuid);
-
-      const parsedLeaderboard = parseLeaderboard(
+      foundUser.leaderboard = parseLeaderboard(
         foundUser.departmentId,
         foundUser.leaderboard
       );
 
-      foundUser.leaderboard = parsedLeaderboard;
-
+      setItem("uuid", foundUser.uuid);
       setUser(foundUser as User);
     }
 

@@ -64,6 +64,36 @@
           "timestamp": "2022-02-28T11:33:24.129Z",
           "type": "COLLECT",
           "amount": 10
+        },
+        {
+          "uuid": "",
+          "timestamp": "2022-02-27T11:33:24.129Z",
+          "type": "REDEEM",
+          "amount": 39
+        },
+        {
+          "uuid": "",
+          "timestamp": "2022-02-26T11:33:24.129Z",
+          "type": "COLLECT",
+          "amount": 2
+        },
+        {
+          "uuid": "",
+          "timestamp": "2022-02-25T11:33:24.129Z",
+          "type": "COLLECT",
+          "amount": 2
+        },
+        {
+          "uuid": "",
+          "timestamp": "2022-02-19T11:33:24.129Z",
+          "type": "COLLECT",
+          "amount": 10
+        },
+        {
+          "uuid": "",
+          "timestamp": "2022-02-18T11:33:24.129Z",
+          "type": "COLLECT",
+          "amount": 25
         }
       ]
     }

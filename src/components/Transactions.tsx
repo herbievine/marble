@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useUser } from "../hooks/useUser";
 import dayjs from "dayjs";
 
@@ -7,6 +7,7 @@ interface TransactionsProps {
 }
 
 const Transactions: React.FC<TransactionsProps> = ({ className }) => {
+  const [limit, setLimit] = useState(3);
   const { user } = useUser();
 
   return (
@@ -20,9 +21,9 @@ const Transactions: React.FC<TransactionsProps> = ({ className }) => {
             {user.transactions
               .sort(
                 ({ timestamp: a }, { timestamp: b }) =>
-                  new Date(b).getTime() - new Date(a).getTime()
+                  dayjs(b).unix() - dayjs(a).unix()
               )
-              .slice(0, 5)
+              .slice(0, limit)
               .map((tx, i) => (
                 <tr key={i} className="px-4 flex justify-between">
                   <td className="pt-3">
@@ -35,6 +36,14 @@ const Transactions: React.FC<TransactionsProps> = ({ className }) => {
                   </td>
                 </tr>
               ))}
+            <tr className="px-4 flex justify-between">
+              <td
+                className="pt-3 cursor-pointer"
+                onClick={() => setLimit((prev) => prev + 3)}
+              >
+                View more...
+              </td>
+            </tr>
           </tbody>
         </table>
       </div>
