@@ -14,7 +14,7 @@ const Login: React.FC<LoginProps> = ({ className }) => {
   const onChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = evt.target;
 
-    setEmail(DOMPurify.sanitize(value));
+    setEmail(DOMPurify.sanitize(value).toLowerCase());
   };
 
   const onClick = async () => {

@@ -15,7 +15,7 @@ const Index: NextPage<IndexProps> = () => {
 
   return (
     <div className="h-screen pt-12 bg-neutral-900 flex flex-col justify-start items-center">
-      <div className="w-10/12 sm:w-8/12 md:w-1/2 lg:w-1/4 flex flex-col items-center justify-center">
+      <div className="w-10/12 max-w-lg flex flex-col items-center justify-center">
         <Marble className="mb-12" />
         {loading && <Loader className="w-full flex justify-center" />}
         <div className={`w-full ${loading && "hidden"}`}>
