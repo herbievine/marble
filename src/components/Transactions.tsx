@@ -36,14 +36,16 @@ const Transactions: React.FC<TransactionsProps> = ({ className }) => {
                   </td>
                 </tr>
               ))}
-            <tr className="px-4 flex justify-between">
-              <td
-                className="pt-3 cursor-pointer"
-                onClick={() => setLimit((prev) => prev + 3)}
-              >
-                View more...
-              </td>
-            </tr>
+            {limit <= user.transactions.length - 1 && (
+              <tr className="px-4 flex justify-between">
+                <td
+                  className="pt-3 cursor-pointer"
+                  onClick={() => setLimit((prev) => prev + 3)}
+                >
+                  View more...
+                </td>
+              </tr>
+            )}
           </tbody>
         </table>
       </div>

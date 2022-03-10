@@ -69,7 +69,7 @@
           "uuid": "",
           "timestamp": "2022-02-27T11:33:24.129Z",
           "type": "REDEEM",
-          "amount": 39
+          "amount": 51
         },
         {
           "uuid": "",
@@ -94,6 +94,18 @@
           "timestamp": "2022-02-18T11:33:24.129Z",
           "type": "COLLECT",
           "amount": 25
+        },
+        {
+          "uuid": "",
+          "timestamp": "2022-02-17T11:33:24.129Z",
+          "type": "COLLECT",
+          "amount": 10
+        },
+        {
+          "uuid": "",
+          "timestamp": "2022-02-16T11:33:24.129Z",
+          "type": "COLLECT",
+          "amount": 2
         }
       ]
     }
