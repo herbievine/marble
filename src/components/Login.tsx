@@ -45,7 +45,7 @@ const Login: React.FC<LoginProps> = ({ className }) => {
           </div>
           <input
             id="input"
-            className="w-full mt-2 px-4 py-3 bg-neutral-900 border-2 border-neutral-200"
+            className="w-full mt-2 px-4 py-3 bg-neutral-900 border-2 border-neutral-200 rounded-lg"
             type="text"
             placeholder="ab123456@hc.ac.je"
             onChange={onChange}

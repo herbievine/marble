@@ -11,7 +11,9 @@ const Overview: React.FC<OverviewProps> = ({ className }) => {
   return (
     <div className={className}>
       <div className="flex justify-between items-center text-lg">
-        <p>Hello {user.name}</p>
+        <p>
+          Hello {user.name} ({user.id.toUpperCase()})
+        </p>
         <p>£{(user.amount / 100).toFixed(2)}</p>
       </div>
     </div>

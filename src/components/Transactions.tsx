@@ -11,7 +11,7 @@ const Transactions: React.FC<TransactionsProps> = ({ className }) => {
 
   return (
     <div className={className}>
-      <div className="py-3 border-2 border-neutral-200">
+      <div className="py-3 border-2 border-neutral-200 rounded-lg">
         <div className="px-4 pb-3 border-b-2 border-neutral-200">
           <p>Transactions</p>
         </div>
