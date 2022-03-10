@@ -3,3 +3,7 @@ export interface Leaderboard {
   title: string;
   amount: number;
 }
+
+export interface LeaderboardWithPosition extends Leaderboard {
+  position: number;
+}

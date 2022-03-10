@@ -5,7 +5,7 @@
       "uuid": "65f20025-5c67-49a3-a435-6cd1fc276b2d",
       "name": "Herbie",
       "amount": 35,
-      "department": "fd1da9e0-3dd3-4a51-80ae-5c6b60acfdba",
+      "departmentId": "fd1da9e0-3dd3-4a51-80ae-5c6b60acfdba",
       "leaderboard": [
         {
           "uuid": "11db86b3-4e67-4d9c-a92c-8a803a5f0494",

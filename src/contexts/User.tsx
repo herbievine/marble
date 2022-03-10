@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { parseLeaderboard } from "../lib/parseLeaderboard";
 import { getItem, setItem } from "../lib/storage";
-import { User } from "../types/User";
+import { NakedUser, User } from "../types/User";
 
 export type UserContext = [
   user?: User,
@@ -18,7 +19,7 @@ const UserProvider: React.FC<{}> = ({ children }) => {
     setLoading(true);
 
     const { data: json } = (await (await fetch("/data.json")).json()) as {
-      data: User[];
+      data: NakedUser[];
     };
 
     const cachedUuid = await getItem("uuid");
@@ -29,7 +30,15 @@ const UserProvider: React.FC<{}> = ({ children }) => {
 
     if (foundUser) {
       setItem("uuid", foundUser.uuid);
-      setUser(foundUser);
+
+      const parsedLeaderboard = parseLeaderboard(
+        foundUser.departmentId,
+        foundUser.leaderboard
+      );
+
+      foundUser.leaderboard = parsedLeaderboard;
+
+      setUser(foundUser as User);
     }
 
     setLoading(false);
