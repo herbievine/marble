@@ -14,7 +14,7 @@ const Index: NextPage<IndexProps> = () => {
   const { user, loading } = useUser();
 
   return (
-    <div className="h-full bg-neutral-900 flex flex-col justify-start items-center">
+    <div className="flex flex-col justify-start items-center">
       <div className="w-10/12 max-w-lg flex flex-col items-center justify-center">
         <Marble className="my-12" />
         {loading && <Loader className="w-full flex justify-center" />}
