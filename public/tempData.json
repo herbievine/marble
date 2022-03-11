@@ -1,0 +1,788 @@
+{
+  "data": [
+    {
+      "id": "hv112765",
+      "uuid": "65f20025-5c67-49a3-a435-6cd1fc276b2d",
+      "name": "Herbie",
+      "amount": 35,
+      "departmentId": "fd1da9e0-3dd3-4a51-80ae-5c6b60acfdba",
+      "leaderboard": [
+        {
+          "uuid": "11db86b3-4e67-4d9c-a92c-8a803a5f0494",
+          "title": "Hairdressing",
+          "amount": 489
+        },
+        {
+          "uuid": "fd1da9e0-3dd3-4a51-80ae-5c6b60acfdba",
+          "title": "IT & Computing",
+          "amount": 224
+        },
+        {
+          "uuid": "ffd8f5de-6adf-4b2b-80fa-83c6a30d063a",
+          "title": "Daycare",
+          "amount": 267
+        },
+        {
+          "uuid": "3b8e1c09-c9f2-4037-a09c-b2d5267654a3",
+          "title": "Retail",
+          "amount": 545
+        },
+        {
+          "uuid": "01817445-f1fe-4698-82e9-fb72902a91f4",
+          "title": "Business",
+          "amount": 443
+        }
+      ],
+      "transactions": [
+        {
+          "uuid": "",
+          "timestamp": "2022-03-07T11:33:24.129Z",
+          "type": "COLLECT",
+          "amount": 2
+        },
+        {
+          "uuid": "",
+          "timestamp": "2022-03-03T11:33:24.129Z",
+          "type": "REDEEM",
+          "amount": 27
+        },
+        {
+          "uuid": "",
+          "timestamp": "2022-03-04T11:33:24.129Z",
+          "type": "COLLECT",
+          "amount": 25
+        },
+
+        {
+          "uuid": "",
+          "timestamp": "2022-03-02T11:33:24.129Z",
+          "type": "COLLECT",
+          "amount": 25
+        },
+        {
+          "uuid": "",
+          "timestamp": "2022-02-28T11:33:24.129Z",
+          "type": "COLLECT",
+          "amount": 10
+        },
+        {
+          "uuid": "",
+          "timestamp": "2022-02-27T11:33:24.129Z",
+          "type": "REDEEM",
+          "amount": 51
+        },
+        {
+          "uuid": "",
+          "timestamp": "2022-02-26T11:33:24.129Z",
+          "type": "COLLECT",
+          "amount": 2
+        },
+        {
+          "uuid": "",
+          "timestamp": "2022-02-25T11:33:24.129Z",
+          "type": "COLLECT",
+          "amount": 2
+        },
+        {
+          "uuid": "",
+          "timestamp": "2022-02-19T11:33:24.129Z",
+          "type": "COLLECT",
+          "amount": 10
+        },
+        {
+          "uuid": "",
+          "timestamp": "2022-02-18T11:33:24.129Z",
+          "type": "COLLECT",
+          "amount": 25
+        },
+        {
+          "uuid": "",
+          "timestamp": "2022-02-17T11:33:24.129Z",
+          "type": "COLLECT",
+          "amount": 10
+        },
+        {
+          "uuid": "",
+          "timestamp": "2022-02-16T11:33:24.129Z",
+          "type": "COLLECT",
+          "amount": 2
+        }
+      ]
+    },
+    {
+      "id": "of728347",
+      "uuid": "7CA4067E-471F-5F1A-711A-B1D56A568746",
+      "name": "Olga",
+      "amount": 1,
+      "departmentId": "ffd8f5de-6adf-4b2b-80fa-83c6a30d063a",
+      "leaderboard": [
+        {
+          "uuid": "11db86b3-4e67-4d9c-a92c-8a803a5f0494",
+          "title": "Hairdressing",
+          "amount": 489
+        },
+        {
+          "uuid": "fd1da9e0-3dd3-4a51-80ae-5c6b60acfdba",
+          "title": "IT & Computing",
+          "amount": 224
+        },
+        {
+          "uuid": "ffd8f5de-6adf-4b2b-80fa-83c6a30d063a",
+          "title": "Daycare",
+          "amount": 267
+        },
+        {
+          "uuid": "3b8e1c09-c9f2-4037-a09c-b2d5267654a3",
+          "title": "Retail",
+          "amount": 545
+        },
+        {
+          "uuid": "01817445-f1fe-4698-82e9-fb72902a91f4",
+          "title": "Business",
+          "amount": 443
+        }
+      ],
+      "transactions": [
+        {
+          "uuid": "86194dfa-d5bb-44ea-9135-0cbfa25c6747",
+
+          "timestamp": "2022-02-06T21:50:37.129Z",
+
+          "type": "REDEEM",
+
+          "amount": "29"
+        },
+
+        {
+          "uuid": "3122683e-faa7-40d5-b82e-c0cf4c71fb03",
+
+          "timestamp": "2022-02-05T13:31:03.129Z",
+
+          "type": "REDEEM",
+
+          "amount": "47"
+        },
+
+        {
+          "uuid": "9126c2aa-bd52-4b06-b418-c38f535bf2f3",
+
+          "timestamp": "2022-02-19T19:00:43.129Z",
+
+          "type": "COLLECT",
+
+          "amount": "88"
+        },
+
+        {
+          "uuid": "678565c1-b564-490b-af64-5784a59fb57d",
+
+          "timestamp": "2022-01-03T02:13:05.129Z",
+
+          "type": "COLLECT",
+
+          "amount": "39"
+        },
+
+        {
+          "uuid": "043d9c8b-1e96-40b1-b2a6-43e11b1b3198",
+
+          "timestamp": "2022-02-16T17:54:02.129Z",
+
+          "type": "COLLECT",
+
+          "amount": "41"
+        },
+
+        {
+          "uuid": "e9b30943-9b65-4f9a-a18d-5c307a679d11",
+
+          "timestamp": "2022-02-04T15:32:01.129Z",
+
+          "type": "COLLECT",
+
+          "amount": "48"
+        },
+
+        {
+          "uuid": "be1cf8f3-ec5d-492c-a156-67c33707af17",
+
+          "timestamp": "2022-01-18T01:03:06.129Z",
+
+          "type": "REDEEM",
+
+          "amount": "81"
+        },
+
+        {
+          "uuid": "779406f0-f9dd-4035-aba6-fe2ad6b2e5cd",
+
+          "timestamp": "2022-02-14T08:58:21.129Z",
+
+          "type": "COLLECT",
+
+          "amount": "11"
+        },
+
+        {
+          "uuid": "133e5769-fa96-4f77-9e80-f4d62a2bc4f8",
+
+          "timestamp": "2022-02-15T08:36:47.129Z",
+
+          "type": "COLLECT",
+
+          "amount": "98"
+        },
+
+        {
+          "uuid": "3e014ea8-b95c-48d3-a060-884f99f47502",
+
+          "timestamp": "2022-03-01T13:28:19.129Z",
+
+          "type": "COLLECT",
+
+          "amount": "22"
+        }
+      ]
+    },
+    {
+      "id": "ru727272",
+      "uuid": "E9B39074-4977-73C9-A981-3D6D172D7386",
+      "name": "Rhea",
+      "amount": 89,
+      "departmentId": "11db86b3-4e67-4d9c-a92c-8a803a5f0494",
+      "leaderboard": [
+        {
+          "uuid": "11db86b3-4e67-4d9c-a92c-8a803a5f0494",
+          "title": "Hairdressing",
+          "amount": 489
+        },
+        {
+          "uuid": "fd1da9e0-3dd3-4a51-80ae-5c6b60acfdba",
+          "title": "IT & Computing",
+          "amount": 224
+        },
+        {
+          "uuid": "ffd8f5de-6adf-4b2b-80fa-83c6a30d063a",
+          "title": "Daycare",
+          "amount": 267
+        },
+        {
+          "uuid": "3b8e1c09-c9f2-4037-a09c-b2d5267654a3",
+          "title": "Retail",
+          "amount": 545
+        },
+        {
+          "uuid": "01817445-f1fe-4698-82e9-fb72902a91f4",
+          "title": "Business",
+          "amount": 443
+        }
+      ],
+      "transactions": [
+        {
+          "uuid": "86194dfa-d5bb-44ea-9135-0cbfa25c6747",
+
+          "timestamp": "2022-02-06T21:50:37.129Z",
+
+          "type": "REDEEM",
+
+          "amount": "29"
+        },
+
+        {
+          "uuid": "3122683e-faa7-40d5-b82e-c0cf4c71fb03",
+
+          "timestamp": "2022-02-05T13:31:03.129Z",
+
+          "type": "REDEEM",
+
+          "amount": "47"
+        },
+
+        {
+          "uuid": "9126c2aa-bd52-4b06-b418-c38f535bf2f3",
+
+          "timestamp": "2022-02-19T19:00:43.129Z",
+
+          "type": "COLLECT",
+
+          "amount": "88"
+        },
+
+        {
+          "uuid": "678565c1-b564-490b-af64-5784a59fb57d",
+
+          "timestamp": "2022-01-03T02:13:05.129Z",
+
+          "type": "COLLECT",
+
+          "amount": "39"
+        },
+
+        {
+          "uuid": "043d9c8b-1e96-40b1-b2a6-43e11b1b3198",
+
+          "timestamp": "2022-02-16T17:54:02.129Z",
+
+          "type": "COLLECT",
+
+          "amount": "41"
+        },
+
+        {
+          "uuid": "e9b30943-9b65-4f9a-a18d-5c307a679d11",
+
+          "timestamp": "2022-02-04T15:32:01.129Z",
+
+          "type": "COLLECT",
+
+          "amount": "48"
+        },
+
+        {
+          "uuid": "be1cf8f3-ec5d-492c-a156-67c33707af17",
+
+          "timestamp": "2022-01-18T01:03:06.129Z",
+
+          "type": "REDEEM",
+
+          "amount": "81"
+        },
+
+        {
+          "uuid": "779406f0-f9dd-4035-aba6-fe2ad6b2e5cd",
+
+          "timestamp": "2022-02-14T08:58:21.129Z",
+
+          "type": "COLLECT",
+
+          "amount": "11"
+        },
+
+        {
+          "uuid": "133e5769-fa96-4f77-9e80-f4d62a2bc4f8",
+
+          "timestamp": "2022-02-15T08:36:47.129Z",
+
+          "type": "COLLECT",
+
+          "amount": "98"
+        },
+
+        {
+          "uuid": "3e014ea8-b95c-48d3-a060-884f99f47502",
+
+          "timestamp": "2022-03-01T13:28:19.129Z",
+
+          "type": "COLLECT",
+
+          "amount": "22"
+        }
+      ]
+    },
+    {
+      "id": "vl123456",
+      "uuid": "2E7E3516-4945-8E09-48F1-235094CCEED5",
+      "name": "Vladimir",
+      "amount": 52,
+      "departmentId": "3b8e1c09-c9f2-4037-a09c-b2d5267654a3",
+      "leaderboard": [
+        {
+          "uuid": "11db86b3-4e67-4d9c-a92c-8a803a5f0494",
+          "title": "Hairdressing",
+          "amount": 489
+        },
+        {
+          "uuid": "fd1da9e0-3dd3-4a51-80ae-5c6b60acfdba",
+          "title": "IT & Computing",
+          "amount": 224
+        },
+        {
+          "uuid": "ffd8f5de-6adf-4b2b-80fa-83c6a30d063a",
+          "title": "Daycare",
+          "amount": 267
+        },
+        {
+          "uuid": "3b8e1c09-c9f2-4037-a09c-b2d5267654a3",
+          "title": "Retail",
+          "amount": 545
+        },
+        {
+          "uuid": "01817445-f1fe-4698-82e9-fb72902a91f4",
+          "title": "Business",
+          "amount": 443
+        }
+      ],
+      "transactions": [
+        {
+          "uuid": "86194dfa-d5bb-44ea-9135-0cbfa25c6747",
+
+          "timestamp": "2022-02-06T21:50:37.129Z",
+
+          "type": "REDEEM",
+
+          "amount": "29"
+        },
+
+        {
+          "uuid": "3122683e-faa7-40d5-b82e-c0cf4c71fb03",
+
+          "timestamp": "2022-02-05T13:31:03.129Z",
+
+          "type": "REDEEM",
+
+          "amount": "47"
+        },
+
+        {
+          "uuid": "9126c2aa-bd52-4b06-b418-c38f535bf2f3",
+
+          "timestamp": "2022-02-19T19:00:43.129Z",
+
+          "type": "COLLECT",
+
+          "amount": "88"
+        },
+
+        {
+          "uuid": "678565c1-b564-490b-af64-5784a59fb57d",
+
+          "timestamp": "2022-01-03T02:13:05.129Z",
+
+          "type": "COLLECT",
+
+          "amount": "39"
+        },
+
+        {
+          "uuid": "043d9c8b-1e96-40b1-b2a6-43e11b1b3198",
+
+          "timestamp": "2022-02-16T17:54:02.129Z",
+
+          "type": "COLLECT",
+
+          "amount": "41"
+        },
+
+        {
+          "uuid": "e9b30943-9b65-4f9a-a18d-5c307a679d11",
+
+          "timestamp": "2022-02-04T15:32:01.129Z",
+
+          "type": "COLLECT",
+
+          "amount": "48"
+        },
+
+        {
+          "uuid": "be1cf8f3-ec5d-492c-a156-67c33707af17",
+
+          "timestamp": "2022-01-18T01:03:06.129Z",
+
+          "type": "REDEEM",
+
+          "amount": "81"
+        },
+
+        {
+          "uuid": "779406f0-f9dd-4035-aba6-fe2ad6b2e5cd",
+
+          "timestamp": "2022-02-14T08:58:21.129Z",
+
+          "type": "COLLECT",
+
+          "amount": "11"
+        },
+
+        {
+          "uuid": "133e5769-fa96-4f77-9e80-f4d62a2bc4f8",
+
+          "timestamp": "2022-02-15T08:36:47.129Z",
+
+          "type": "COLLECT",
+
+          "amount": "98"
+        },
+
+        {
+          "uuid": "3e014ea8-b95c-48d3-a060-884f99f47502",
+
+          "timestamp": "2022-03-01T13:28:19.129Z",
+
+          "type": "COLLECT",
+
+          "amount": "22"
+        }
+      ]
+    },
+    {
+      "id": "hk029282",
+      "uuid": "E974A8C1-1AF3-6A56-D458-4F5E6965DABE",
+      "name": "Holmes",
+      "amount": 28,
+      "departmentId": "fd1da9e0-3dd3-4a51-80ae-5c6b60acfdba",
+      "leaderboard": [
+        {
+          "uuid": "11db86b3-4e67-4d9c-a92c-8a803a5f0494",
+          "title": "Hairdressing",
+          "amount": 489
+        },
+        {
+          "uuid": "fd1da9e0-3dd3-4a51-80ae-5c6b60acfdba",
+          "title": "IT & Computing",
+          "amount": 224
+        },
+        {
+          "uuid": "ffd8f5de-6adf-4b2b-80fa-83c6a30d063a",
+          "title": "Daycare",
+          "amount": 267
+        },
+        {
+          "uuid": "3b8e1c09-c9f2-4037-a09c-b2d5267654a3",
+          "title": "Retail",
+          "amount": 545
+        },
+        {
+          "uuid": "01817445-f1fe-4698-82e9-fb72902a91f4",
+          "title": "Business",
+          "amount": 443
+        }
+      ],
+      "transactions": [
+        {
+          "uuid": "86194dfa-d5bb-44ea-9135-0cbfa25c6747",
+
+          "timestamp": "2022-02-06T21:50:37.129Z",
+
+          "type": "REDEEM",
+
+          "amount": "29"
+        },
+
+        {
+          "uuid": "3122683e-faa7-40d5-b82e-c0cf4c71fb03",
+
+          "timestamp": "2022-02-05T13:31:03.129Z",
+
+          "type": "REDEEM",
+
+          "amount": "47"
+        },
+
+        {
+          "uuid": "9126c2aa-bd52-4b06-b418-c38f535bf2f3",
+
+          "timestamp": "2022-02-19T19:00:43.129Z",
+
+          "type": "COLLECT",
+
+          "amount": "88"
+        },
+
+        {
+          "uuid": "678565c1-b564-490b-af64-5784a59fb57d",
+
+          "timestamp": "2022-01-03T02:13:05.129Z",
+
+          "type": "COLLECT",
+
+          "amount": "39"
+        },
+
+        {
+          "uuid": "043d9c8b-1e96-40b1-b2a6-43e11b1b3198",
+
+          "timestamp": "2022-02-16T17:54:02.129Z",
+
+          "type": "COLLECT",
+
+          "amount": "41"
+        },
+
+        {
+          "uuid": "e9b30943-9b65-4f9a-a18d-5c307a679d11",
+
+          "timestamp": "2022-02-04T15:32:01.129Z",
+
+          "type": "COLLECT",
+
+          "amount": "48"
+        },
+
+        {
+          "uuid": "be1cf8f3-ec5d-492c-a156-67c33707af17",
+
+          "timestamp": "2022-01-18T01:03:06.129Z",
+
+          "type": "REDEEM",
+
+          "amount": "81"
+        },
+
+        {
+          "uuid": "779406f0-f9dd-4035-aba6-fe2ad6b2e5cd",
+
+          "timestamp": "2022-02-14T08:58:21.129Z",
+
+          "type": "COLLECT",
+
+          "amount": "11"
+        },
+
+        {
+          "uuid": "133e5769-fa96-4f77-9e80-f4d62a2bc4f8",
+
+          "timestamp": "2022-02-15T08:36:47.129Z",
+
+          "type": "COLLECT",
+
+          "amount": "98"
+        },
+
+        {
+          "uuid": "3e014ea8-b95c-48d3-a060-884f99f47502",
+
+          "timestamp": "2022-03-01T13:28:19.129Z",
+
+          "type": "COLLECT",
+
+          "amount": "22"
+        }
+      ]
+    },
+    {
+      "id": "mk837464",
+      "uuid": "A21B8E8C-3CDB-44DA-DD4D-367413B14702",
+      "name": "Maggy",
+      "amount": 50,
+      "departmentId": "01817445-f1fe-4698-82e9-fb72902a91f4",
+      "leaderboard": [
+        {
+          "uuid": "11db86b3-4e67-4d9c-a92c-8a803a5f0494",
+          "title": "Hairdressing",
+          "amount": 489
+        },
+        {
+          "uuid": "fd1da9e0-3dd3-4a51-80ae-5c6b60acfdba",
+          "title": "IT & Computing",
+          "amount": 224
+        },
+        {
+          "uuid": "ffd8f5de-6adf-4b2b-80fa-83c6a30d063a",
+          "title": "Daycare",
+          "amount": 267
+        },
+        {
+          "uuid": "3b8e1c09-c9f2-4037-a09c-b2d5267654a3",
+          "title": "Retail",
+          "amount": 545
+        },
+        {
+          "uuid": "01817445-f1fe-4698-82e9-fb72902a91f4",
+          "title": "Business",
+          "amount": 443
+        }
+      ],
+      "transactions": [
+        {
+          "uuid": "86194dfa-d5bb-44ea-9135-0cbfa25c6747",
+
+          "timestamp": "2022-02-06T21:50:37.129Z",
+
+          "type": "REDEEM",
+
+          "amount": "29"
+        },
+
+        {
+          "uuid": "3122683e-faa7-40d5-b82e-c0cf4c71fb03",
+
+          "timestamp": "2022-02-05T13:31:03.129Z",
+
+          "type": "REDEEM",
+
+          "amount": "47"
+        },
+
+        {
+          "uuid": "9126c2aa-bd52-4b06-b418-c38f535bf2f3",
+
+          "timestamp": "2022-02-19T19:00:43.129Z",
+
+          "type": "COLLECT",
+
+          "amount": "88"
+        },
+
+        {
+          "uuid": "678565c1-b564-490b-af64-5784a59fb57d",
+
+          "timestamp": "2022-01-03T02:13:05.129Z",
+
+          "type": "COLLECT",
+
+          "amount": "39"
+        },
+
+        {
+          "uuid": "043d9c8b-1e96-40b1-b2a6-43e11b1b3198",
+
+          "timestamp": "2022-02-16T17:54:02.129Z",
+
+          "type": "COLLECT",
+
+          "amount": "41"
+        },
+
+        {
+          "uuid": "e9b30943-9b65-4f9a-a18d-5c307a679d11",
+
+          "timestamp": "2022-02-04T15:32:01.129Z",
+
+          "type": "COLLECT",
+
+          "amount": "48"
+        },
+
+        {
+          "uuid": "be1cf8f3-ec5d-492c-a156-67c33707af17",
+
+          "timestamp": "2022-01-18T01:03:06.129Z",
+
+          "type": "REDEEM",
+
+          "amount": "81"
+        },
+
+        {
+          "uuid": "779406f0-f9dd-4035-aba6-fe2ad6b2e5cd",
+
+          "timestamp": "2022-02-14T08:58:21.129Z",
+
+          "type": "COLLECT",
+
+          "amount": "11"
+        },
+
+        {
+          "uuid": "133e5769-fa96-4f77-9e80-f4d62a2bc4f8",
+
+          "timestamp": "2022-02-15T08:36:47.129Z",
+
+          "type": "COLLECT",
+
+          "amount": "98"
+        },
+
+        {
+          "uuid": "3e014ea8-b95c-48d3-a060-884f99f47502",
+
+          "timestamp": "2022-03-01T13:28:19.129Z",
+
+          "type": "COLLECT",
+
+          "amount": "22"
+        }
+      ]
+    }
+  ]
+}

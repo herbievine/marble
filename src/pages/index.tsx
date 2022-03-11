@@ -1,6 +1,7 @@
 import type { NextPage } from "next";
 import React from "react";
 import Marble from "../assets/Marble";
+import Footer from "../components/Footer";
 import Leaderboard from "../components/Leaderboard";
 import Loader from "../components/Loader";
 import Login from "../components/Login";
@@ -18,7 +19,7 @@ const Index: NextPage<IndexProps> = () => {
       <div className="w-10/12 max-w-lg flex flex-col items-center justify-center">
         <Marble className="my-12" />
         {loading && <Loader className="w-full flex justify-center" />}
-        <div className={`w-full pb-12 ${loading && "hidden"}`}>
+        <div className={`w-full ${loading && "hidden"}`}>
           {user ? (
             <div className="w-full text-neutral-200">
               <Overview />
@@ -31,6 +32,7 @@ const Index: NextPage<IndexProps> = () => {
             </div>
           )}
         </div>
+        <Footer className="my-12" />
       </div>
     </div>
   );

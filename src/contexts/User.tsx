@@ -15,10 +15,10 @@ const UserProvider: React.FC<{}> = ({ children }) => {
   const [user, setUser] = useState<User>();
   const [loading, setLoading] = useState(true);
 
-  const findUser = async (id?: string) => {
+  const findUser = async (id?: string): Promise<boolean> => {
     setLoading(true);
 
-    const { data: json } = (await (await fetch("/data.json")).json()) as {
+    const { data: json } = (await (await fetch("/tempData.json")).json()) as {
       data: NakedUser[];
     };
 
