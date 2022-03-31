@@ -1,7 +1,7 @@
 import { Leaderboard, LeaderboardWithPosition } from "./Leaderboard";
 import { Transaction } from "./Transaction";
 
-export interface NakedUser {
+export interface BasicUser {
   id: string;
   uuid: string;
   name: string;
@@ -11,6 +11,6 @@ export interface NakedUser {
   transactions: Transaction[];
 }
 
-export interface User extends NakedUser {
+export interface User extends BasicUser {
   leaderboard: LeaderboardWithPosition[];
 }

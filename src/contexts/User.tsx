@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { parseLeaderboard } from "../lib/parseLeaderboard";
 import { getItem, setItem } from "../lib/storage";
-import { NakedUser, User } from "../types/User";
+import { BasicUser, User } from "../types/User";
 
 export type UserContext = [
   user?: User,
@@ -19,7 +19,7 @@ const UserProvider: React.FC<{}> = ({ children }) => {
     setLoading(true);
 
     const { data: json } = (await (await fetch("/tempData.json")).json()) as {
-      data: NakedUser[];
+      data: BasicUser[];
     };
 
     const cachedUuid = await getItem("uuid");

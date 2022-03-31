@@ -1,62 +1,71 @@
-import React, { useState } from "react";
-import { useUser } from "../hooks/useUser";
-import DOMPurify from "dompurify";
+import React, { useEffect, useState } from "react";
+import Credentials from "./auth/Credentials";
+import Profile from "./auth/Profile";
+import Verify from "./auth/Verify";
 
-interface LoginProps {
-  className?: string;
-}
+interface LoginProps {}
 
-const Login: React.FC<LoginProps> = ({ className }) => {
-  const [email, setEmail] = useState("");
-  const [error, setError] = useState("");
-  const { findUser } = useUser();
+export type LoginData = {
+  id?: string;
+  username?: string;
+  code?: number;
+  codeFromEmail?: number;
+};
 
-  const onChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
-    const { value } = evt.target;
+const Login: React.FC<LoginProps> = () => {
+  const [count, setCount] = useState(1);
+  const [data, setData] = useState<LoginData>({});
 
-    setEmail(DOMPurify.sanitize(value).toLowerCase());
+  useEffect(() => console.log(count, data), [count, data]);
+
+  const next = () => {
+    setCount((prev) => prev + 1);
   };
 
-  const onClick = async () => {
-    const emailRegex = /^[a-z]{2}[0-9]{6}(@hc.ac.je)?$/g;
-
-    if (!email) {
-      return setError("Email empty");
-    } else if (!emailRegex.test(email)) {
-      return setError("Invalid email");
-    }
-
-    const id = email.split("@")[0];
-
-    const attempt = await findUser(id);
-
-    if (!attempt) {
-      return setError("User not found");
-    }
+  const back = () => {
+    setCount((prev) => prev - 1);
   };
 
-  return (
-    <div className={className}>
-      <div className="w-full flex flex-col justify-start items-center">
-        <div className="w-full">
-          <div className="flex justify-between items-center">
-            <label htmlFor="input">Email:</label>
-            {error && <p className="text-red-400">{error}</p>}
-          </div>
-          <input
-            id="input"
-            className="w-full mt-2 px-4 py-3 bg-neutral-900 border-2 border-neutral-200 rounded-lg"
-            type="text"
-            placeholder="ab123456@hc.ac.je"
-            onChange={onChange}
-          />
-        </div>
-        <button className="mt-6" onClick={onClick}>
-          Submit
-        </button>
-      </div>
-    </div>
-  );
+  const updateData = <Key extends keyof LoginData>(
+    key: Key,
+    payload: LoginData[Key]
+  ) => {
+    setData((prev) => ({ ...prev, [key]: payload }));
+  };
+
+  const sendEmail = () => {
+    const code = 827174;
+
+    setData((prev) => ({ ...prev, code }));
+
+    console.log(`Code is ${code}`);
+  };
+
+  switch (count) {
+    case 1:
+      return <Credentials next={next} updateData={updateData} values={data} />;
+    case 2:
+      return (
+        <Verify
+          next={next}
+          back={back}
+          updateData={updateData}
+          sendEmail={sendEmail}
+          values={data}
+        />
+      );
+    case 3:
+      return (
+        <Profile
+          next={next}
+          back={back}
+          updateData={updateData}
+          values={data}
+        />
+      );
+    default:
+      break;
+  }
 };
 
 export default Login;
