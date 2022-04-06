@@ -1,6 +1,7 @@
 import DOMPurify from "dompurify";
 import React, { useEffect, useState } from "react";
 import Auth from "../../layouts/Auth";
+import { magic } from "../../lib/magic";
 import { AuthFlowData } from "../AuthFlow";
 
 interface ProfileProps {
@@ -18,7 +19,7 @@ const Profile: React.FC<ProfileProps> = ({ updateData }) => {
   const onChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = evt.target;
 
-    setUsername(DOMPurify.sanitize(value).toLowerCase());
+    setUsername(DOMPurify.sanitize(value));
   };
 
   const onClick = async () => {

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import DOMPurify from "dompurify";
 import { AuthFlowData } from "../AuthFlow";
 import Auth from "../../layouts/Auth";
@@ -18,7 +18,7 @@ const School: React.FC<SchoolProps> = ({ updateData }) => {
   const onChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = evt.target;
 
-    setSchoolId(DOMPurify.sanitize(value).toLowerCase());
+    setSchoolId(DOMPurify.sanitize(value).replace(/[a-zA-Z]/g, ""));
   };
 
   const onClick = async () => {
