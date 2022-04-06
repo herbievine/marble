@@ -1,12 +1,15 @@
 import { AppProps } from "next/app";
-import UserProvider from "../contexts/User";
+import LoadingProvider from "../contexts/Loading";
+import AuthProvider from "../contexts/Auth";
 import "../styles/globals.css";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
-    <UserProvider>
-      <Component {...pageProps} />
-    </UserProvider>
+    <LoadingProvider>
+      <AuthProvider>
+        <Component {...pageProps} />
+      </AuthProvider>
+    </LoadingProvider>
   );
 };
 

@@ -1,23 +1,21 @@
 import React from "react";
 
-interface AuthFlowProps {
+interface AuthProps {
   prompt: string;
   placeholder: string;
   defaultValue: string;
   onChange: (evt: React.ChangeEvent<HTMLInputElement>) => void;
   error?: string;
   next?: () => void;
-  back?: () => void;
 }
 
-const AuthFlow: React.FC<AuthFlowProps> = ({
+const Auth: React.FC<AuthProps> = ({
   prompt,
   placeholder,
   defaultValue,
   onChange,
   error,
   next,
-  back,
 }) => {
   return (
     <div className="w-full flex flex-col justify-start items-center">
@@ -35,24 +33,11 @@ const AuthFlow: React.FC<AuthFlowProps> = ({
           onChange={onChange}
         />
       </div>
-      <div className="mt-12 w-full flex justify-between align-center">
-        <button
-          className={!back && "text-neutral-500"}
-          disabled={!back}
-          onClick={back}
-        >
-          Back
-        </button>
-        <button
-          className={!next && "text-neutral-500"}
-          disabled={!next}
-          onClick={next}
-        >
-          Next
-        </button>
+      <div className="mt-12 w-full flex justify-center align-center">
+        <button onClick={next}>Next</button>
       </div>
     </div>
   );
 };
 
-export default AuthFlow;
+export default Auth;

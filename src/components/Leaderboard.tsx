@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 import React from "react";
-import { useUser } from "../hooks/useUser";
+import { useUser } from "../hooks/useAuth";
 
 interface LeaderboardProps {
   className?: string;

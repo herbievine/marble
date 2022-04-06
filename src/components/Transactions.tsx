@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useUser } from "../hooks/useUser";
+import { useUser } from "../hooks/useAuth";
 import dayjs from "dayjs";
 
 interface TransactionsProps {
