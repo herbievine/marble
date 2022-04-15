@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { AuthProps } from "../contexts/Auth";
 import Email from "./auth/Email";
 import Profile from "./auth/Profile";
 import School from "./auth/School";
@@ -6,20 +7,14 @@ import Loader from "./Loader";
 
 interface AuthFlowProps {}
 
-export type AuthFlowData = {
-  schoolId?: string;
-  didToken?: string;
-  username?: string;
-};
-
 const AuthFlow: React.FC<AuthFlowProps> = () => {
-  const [data, setData] = useState<AuthFlowData>(null);
+  const [data, setData] = useState<AuthProps>(null);
 
   useEffect(() => console.log(data), [data]);
 
-  const updateData = <Key extends keyof AuthFlowData>(
+  const updateData = <Key extends keyof AuthProps>(
     key: Key,
-    payload: AuthFlowData[Key]
+    payload: AuthProps[Key]
   ) => {
     setData((prev) => ({ ...prev, [key]: payload }));
   };

@@ -1,15 +1,15 @@
 import DOMPurify from "dompurify";
 import React, { useEffect, useState } from "react";
+import { AuthProps } from "../../contexts/Auth";
 import Auth from "../../layouts/Auth";
 import { magic } from "../../lib/magic";
-import { AuthFlowData } from "../AuthFlow";
 
 interface ProfileProps {
-  updateData: <Key extends keyof AuthFlowData>(
+  updateData: <Key extends keyof AuthProps>(
     key: Key,
-    payload: AuthFlowData[Key]
+    payload: AuthProps[Key]
   ) => void;
-  values: AuthFlowData;
+  values: AuthProps;
 }
 
 const Profile: React.FC<ProfileProps> = ({ updateData }) => {

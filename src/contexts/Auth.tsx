@@ -1,17 +1,26 @@
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useLoading } from "../hooks/useLoading";
-import { parseLeaderboard } from "../lib/parseLeaderboard";
-import { getItem, setItem } from "../lib/storage";
 
-type Auth = { schoolId?: string; didToken?: string; username?: string };
+export type AuthProps = {
+  schoolId: string;
+  didToken: string;
+  username: string;
+};
 
-export type AuthContext = [auth?: Auth];
+export type AuthContext = [
+  auth?: AuthProps,
+  login?: (payload: AuthProps) => Promise<void>
+];
 
 export const AuthContext = React.createContext<AuthContext>([]);
 
 const AuthProvider: React.FC<{}> = ({ children }) => {
-  const [auth, setAuth] = useState<Auth>();
+  const [auth, setAuth] = useState<AuthProps>();
   const { setLoading } = useLoading();
+
+  const login = async (payload: AuthProps) => {
+    setLoading(true);
+  };
 
   // const findCookie = useCallback(
   //   async (): Promise<boolean> => {
@@ -28,7 +37,11 @@ const AuthProvider: React.FC<{}> = ({ children }) => {
   //   findCookie();
   // }, [findCookie]);
 
-  return <AuthContext.Provider value={[auth]}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={[auth, login]}>
+      {children}
+    </AuthContext.Provider>
+  );
 };
 
 export default AuthProvider;

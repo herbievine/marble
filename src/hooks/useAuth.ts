@@ -1,8 +1,8 @@
 import { useContext } from "react";
-import { AuthContext } from "../contexts/Auth";
+import { AuthContext, AuthProps } from "../contexts/Auth";
 
 export interface AuthHook {
-  auth: AuthContext[0];
+  auth: Partial<AuthProps>;
 }
 
 const useAuth = (): AuthHook => {

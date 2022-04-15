@@ -1,17 +1,16 @@
 import React, { useEffect, useState } from "react";
 import DOMPurify from "dompurify";
 import Auth from "../../layouts/Auth";
-import { Magic } from "magic-sdk";
-import { AuthFlowData } from "../AuthFlow";
 import { magic } from "../../lib/magic";
 import { useLoading } from "../../hooks/useLoading";
+import { AuthProps } from "../../contexts/Auth";
 
 interface CredentialsProps {
-  updateData: <Key extends keyof AuthFlowData>(
+  updateData: <Key extends keyof AuthProps>(
     key: Key,
-    payload: AuthFlowData[Key]
+    payload: AuthProps[Key]
   ) => void;
-  values: AuthFlowData;
+  values: AuthProps;
 }
 
 const Credentials: React.FC<CredentialsProps> = ({ updateData }) => {

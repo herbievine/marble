@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import DOMPurify from "dompurify";
-import { AuthFlowData } from "../AuthFlow";
 import Auth from "../../layouts/Auth";
+import { AuthProps } from "../../contexts/Auth";
 
 interface SchoolProps {
-  updateData: <Key extends keyof AuthFlowData>(
+  updateData: <Key extends keyof AuthProps>(
     key: Key,
-    payload: AuthFlowData[Key]
+    payload: AuthProps[Key]
   ) => void;
-  values: AuthFlowData;
+  values: AuthProps;
 }
 
 const School: React.FC<SchoolProps> = ({ updateData }) => {
