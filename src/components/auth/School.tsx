@@ -2,18 +2,14 @@ import React, { useState } from "react";
 import DOMPurify from "dompurify";
 import Auth from "../../layouts/Auth";
 import { AuthProps } from "../../contexts/Auth";
+import { useAuth } from "../../hooks/useAuth";
 
-interface SchoolProps {
-  updateData: <Key extends keyof AuthProps>(
-    key: Key,
-    payload: AuthProps[Key]
-  ) => void;
-  values: AuthProps;
-}
+interface SchoolProps {}
 
-const School: React.FC<SchoolProps> = ({ updateData }) => {
+const School: React.FC<SchoolProps> = () => {
   const [schoolId, setSchoolId] = useState("");
   const [error, setError] = useState("");
+  const { updateData } = useAuth();
 
   const onChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = evt.target;

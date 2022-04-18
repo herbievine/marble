@@ -12,19 +12,12 @@ const AuthFlow: React.FC<AuthFlowProps> = () => {
 
   useEffect(() => console.log(data), [data]);
 
-  const updateData = <Key extends keyof AuthProps>(
-    key: Key,
-    payload: AuthProps[Key]
-  ) => {
-    setData((prev) => ({ ...prev, [key]: payload }));
-  };
-
   if (!data?.schoolId) {
-    return <School updateData={updateData} values={data} />;
+    return <School />;
+  } else if (!data?.email) {
+    return <Email />;
   } else if (!data?.username) {
-    return <Profile updateData={updateData} values={data} />;
-  } else if (!data?.didToken) {
-    return <Email updateData={updateData} values={data} />;
+    return <Profile />;
   }
 
   return <Loader className="w-full flex justify-center" />;

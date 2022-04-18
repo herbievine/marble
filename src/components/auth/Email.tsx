@@ -1,22 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import DOMPurify from "dompurify";
 import Auth from "../../layouts/Auth";
-import { magic } from "../../lib/magic";
-import { useLoading } from "../../hooks/useLoading";
-import { AuthProps } from "../../contexts/Auth";
+import { useAuth } from "../../hooks/useAuth";
 
-interface CredentialsProps {
-  updateData: <Key extends keyof AuthProps>(
-    key: Key,
-    payload: AuthProps[Key]
-  ) => void;
-  values: AuthProps;
-}
+interface CredentialsProps {}
 
-const Credentials: React.FC<CredentialsProps> = ({ updateData }) => {
+const Credentials: React.FC<CredentialsProps> = () => {
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
-  const { setLoading } = useLoading();
+  const { updateData } = useAuth();
 
   const onChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = evt.target;
@@ -34,13 +26,7 @@ const Credentials: React.FC<CredentialsProps> = ({ updateData }) => {
       return setError("Invalid email");
     }
 
-    setLoading(true);
-
-    const didToken = await magic().auth.loginWithMagicLink({ email });
-
-    setLoading(false);
-
-    updateData("didToken", didToken);
+    updateData("email", email);
   };
 
   return (

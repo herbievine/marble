@@ -1,20 +1,16 @@
 import DOMPurify from "dompurify";
 import React, { useEffect, useState } from "react";
 import { AuthProps } from "../../contexts/Auth";
+import { useAuth } from "../../hooks/useAuth";
 import Auth from "../../layouts/Auth";
 import { magic } from "../../lib/magic";
 
-interface ProfileProps {
-  updateData: <Key extends keyof AuthProps>(
-    key: Key,
-    payload: AuthProps[Key]
-  ) => void;
-  values: AuthProps;
-}
+interface ProfileProps {}
 
-const Profile: React.FC<ProfileProps> = ({ updateData }) => {
+const Profile: React.FC<ProfileProps> = () => {
   const [username, setUsername] = useState("");
   const [error, setError] = useState("");
+  const { updateData } = useAuth();
 
   const onChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = evt.target;
