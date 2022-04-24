@@ -2,15 +2,15 @@ import { Leaderboard, LeaderboardWithPosition } from "./Leaderboard";
 import { Transaction } from "./Transaction";
 
 export interface BasicUser {
-  id: string;
   uuid: string;
-  name: string;
+  username: string;
   amount: number;
-  departmentId: string;
-  leaderboard: Leaderboard[];
-  transactions: Transaction[];
+  [string]: string;
+  // departmentId: string;
+  // leaderboard: Leaderboard[];
+  // transactions: Transaction[];
 }
 
 export interface User extends BasicUser {
-  leaderboard: LeaderboardWithPosition[];
+  // leaderboard: LeaderboardWithPosition[];
 }

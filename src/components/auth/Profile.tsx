@@ -2,6 +2,7 @@ import DOMPurify from "dompurify";
 import React, { useEffect, useState } from "react";
 import { AuthProps } from "../../contexts/Auth";
 import { useAuth } from "../../hooks/useAuth";
+import { useGlobalError } from "../../hooks/useGlobalError";
 import Auth from "../../layouts/Auth";
 import { magic } from "../../lib/magic";
 
@@ -9,7 +10,7 @@ interface ProfileProps {}
 
 const Profile: React.FC<ProfileProps> = () => {
   const [username, setUsername] = useState("");
-  const [error, setError] = useState("");
+  const { globalError, setGlobalError } = useGlobalError();
   const { updateData } = useAuth();
 
   const onChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
@@ -22,9 +23,9 @@ const Profile: React.FC<ProfileProps> = () => {
     const usernameRegex = /^[a-zA-Z0-9]\w+$/g;
 
     if (!username) {
-      return setError("Username empty");
+      return setGlobalError({ key: "username", message: "Username empty" });
     } else if (!usernameRegex.test(username)) {
-      return setError("Invalid username");
+      return setGlobalError({ key: "username", message: "Invalid username" });
     }
 
     updateData("username", username);
@@ -36,7 +37,7 @@ const Profile: React.FC<ProfileProps> = () => {
       placeholder="Sponge Bob"
       defaultValue={username}
       onChange={onChange}
-      error={error}
+      error={globalError?.key === "username" ? globalError.message : ""}
       next={onClick}
     />
   );

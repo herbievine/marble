@@ -1,14 +1,19 @@
 import React, { useState } from "react";
 import DOMPurify from "dompurify";
 import Auth from "../../layouts/Auth";
-import { AuthProps } from "../../contexts/Auth";
 import { useAuth } from "../../hooks/useAuth";
+import {
+  GetSchoolMutation,
+  useGetSchoolMutation,
+} from "../../generated/graphql";
+import { FetchResult } from "@apollo/client";
+import { useGlobalError } from "../../hooks/useGlobalError";
 
 interface SchoolProps {}
 
 const School: React.FC<SchoolProps> = () => {
   const [schoolId, setSchoolId] = useState("");
-  const [error, setError] = useState("");
+  const { globalError, setGlobalError } = useGlobalError();
   const { updateData } = useAuth();
 
   const onChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
@@ -21,9 +26,9 @@ const School: React.FC<SchoolProps> = () => {
     const schoolIdRegex = /^[0-9]{4}$/g;
 
     if (!schoolId) {
-      return setError("School ID empty");
+      return setGlobalError({ key: "school", message: "School ID empty" });
     } else if (!schoolIdRegex.test(schoolId)) {
-      return setError("Invalid school ID");
+      return setGlobalError({ key: "school", message: "Invalid school ID" });
     }
 
     updateData("schoolId", schoolId);
@@ -35,7 +40,7 @@ const School: React.FC<SchoolProps> = () => {
       placeholder="3872"
       defaultValue={schoolId}
       onChange={onChange}
-      error={error}
+      error={globalError?.key === "school" ? globalError.message : ""}
       next={onClick}
     />
   );

@@ -2,20 +2,28 @@ import { AppProps } from "next/app";
 import LoadingProvider from "../contexts/Loading";
 import AuthProvider from "../contexts/Auth";
 import "../styles/globals.css";
-import { useEffect } from "react";
-import { magic } from "../lib/magic";
+import { ApolloProvider } from "@apollo/client";
+import { client } from "../lib/apollo";
+import GlobalErrorProvider from "../contexts/GlobalError";
+import UserProvider from "../contexts/User";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
-  useEffect(() => {
-    magic().preload();
-  }, []);
+  // useEffect(() => {
+  //   magic().preload();
+  // }, []);
 
   return (
-    <LoadingProvider>
-      <AuthProvider>
-        <Component {...pageProps} />
-      </AuthProvider>
-    </LoadingProvider>
+    <ApolloProvider client={client}>
+      <LoadingProvider>
+        <GlobalErrorProvider>
+          <UserProvider>
+            <AuthProvider>
+              <Component {...pageProps} />
+            </AuthProvider>
+          </UserProvider>
+        </GlobalErrorProvider>
+      </LoadingProvider>
+    </ApolloProvider>
   );
 };
 

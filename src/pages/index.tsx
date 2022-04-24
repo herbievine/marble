@@ -7,18 +7,14 @@ import Loader from "../components/Loader";
 import AuthFlow from "../components/AuthFlow";
 import Overview from "../components/Overview";
 import Transactions from "../components/Transactions";
-// import { useUser } from "../hooks/useAuth";
 import { useLoading } from "../hooks/useLoading";
+import { useAuth } from "../hooks/useAuth";
 
 interface IndexProps {}
 
 const Index: NextPage<IndexProps> = () => {
-  // const { user } = useUser();
-  const { loading, setLoading } = useLoading();
-
-  useEffect(() => setLoading(false), []);
-
-  useEffect(() => console.log(loading), [loading]);
+  const { loading } = useLoading();
+  const { auth } = useAuth();
 
   return (
     <div className="flex flex-col justify-start items-center">
@@ -26,11 +22,11 @@ const Index: NextPage<IndexProps> = () => {
         <Marble className="my-12" />
         {loading && <Loader className="w-full flex justify-center" />}
         <div className={`w-full ${loading ? "hidden" : ""}`}>
-          {false ? (
+          {auth?.isComplete ? (
             <div className="w-full text-neutral-200">
               <Overview />
-              <Leaderboard className="mt-6" />
-              <Transactions className="mt-6" />
+              {/* <Leaderboard className="mt-6" />
+              <Transactions className="mt-6" /> */}
             </div>
           ) : (
             <div className="w-full text-neutral-200">

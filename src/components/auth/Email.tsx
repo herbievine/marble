@@ -2,13 +2,14 @@ import React, { useState } from "react";
 import DOMPurify from "dompurify";
 import Auth from "../../layouts/Auth";
 import { useAuth } from "../../hooks/useAuth";
+import { useGlobalError } from "../../hooks/useGlobalError";
 
 interface CredentialsProps {}
 
 const Credentials: React.FC<CredentialsProps> = () => {
   const [email, setEmail] = useState("");
-  const [error, setError] = useState("");
-  const { updateData } = useAuth();
+  const { globalError, setGlobalError } = useGlobalError();
+  const { updateData, auth } = useAuth();
 
   const onChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = evt.target;
@@ -17,13 +18,12 @@ const Credentials: React.FC<CredentialsProps> = () => {
   };
 
   const onClick = async () => {
-    // const emailRegex = /^[a-z]{2}[0-9]{6}@hc.ac.je$/g;
-    const emailRegex = /^[a-z]{10}@gmail.com$/g;
+    const emailRegex = new RegExp(auth.emailPolicy);
 
     if (!email) {
-      return setError("Email empty");
+      return setGlobalError({ key: "email", message: "Email empty" });
     } else if (!emailRegex.test(email)) {
-      return setError("Invalid email");
+      return setGlobalError({ key: "email", message: "Invalid email" });
     }
 
     updateData("email", email);
@@ -35,7 +35,7 @@ const Credentials: React.FC<CredentialsProps> = () => {
       placeholder="xy123456@hc.ac.je"
       defaultValue={email}
       onChange={onChange}
-      error={error}
+      error={globalError?.key === "email" ? globalError.message : ""}
       next={onClick}
     />
   );

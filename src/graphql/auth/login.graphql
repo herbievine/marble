@@ -1,0 +1,9 @@
+mutation Login($schoolId: String!) {
+  login(payload: { schoolId: $schoolId }) {
+    user {
+      uuid
+      username
+      amount
+    }
+  }
+}
