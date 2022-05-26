@@ -1,173 +1,204 @@
 import { FetchResult } from "@apollo/client";
 import React, { useCallback, useEffect, useState } from "react";
 import {
-  GetSchoolMutation,
-  useGetSchoolMutation,
+  GetSchoolLazyQueryHookResult,
+  GetSchoolQueryResult,
+  useGetSchoolLazyQuery,
   useLoginMutation,
+  useMeLazyQuery,
   useUpdateUserMutation,
 } from "../generated/graphql";
-import { useGlobalError } from "../hooks/useGlobalError";
+import { useAuthFlow } from "../hooks/useAuthFlow";
 import { useLoading } from "../hooks/useLoading";
 import { useUser } from "../hooks/useUser";
 import { magic } from "../lib/magic";
-import { setItem } from "../lib/storage";
+import { User } from "../types/User";
+import { AuthFlowSteps } from "./AuthFlow";
+
+type External = {
+  email?: string;
+  schoolId?: string;
+  username?: string;
+};
+
+type Internal = {
+  emailPolicy?: string;
+  hasUsername?: boolean;
+};
 
 export type AuthProps = {
-  schoolId?: string;
-  emailPolicy?: string;
-  email?: string;
-  didToken?: string;
-  username?: string;
-  hasUsername?: boolean;
-  isLoggedIn: boolean;
-  isComplete: boolean;
+  external: External;
+  internal: Internal;
+  user: Partial<User>;
 };
 
 export type AuthContext = [
   auth?: AuthProps,
-  updateData?: <Key extends keyof AuthProps>(
+  updateExternal?: <Key extends keyof External>(
     key: Key,
-    payload: AuthProps[Key]
-  ) => void
+    payload: External[Key]
+  ) => void,
+  onSchoolSubmit?: (schoolId: string) => Promise<void>,
+  onEmailSubmit?: (email: string, schoolId: string) => Promise<void>,
+  onUsernameSubmit?: (username: string) => Promise<void>
 ];
 
 export const AuthContext = React.createContext<AuthContext>([]);
 
 const AuthProvider: React.FC<{}> = ({ children }) => {
   const [auth, setAuth] = useState<AuthProps>({
-    isLoggedIn: false,
-    hasUsername: false,
-    isComplete: false,
+    external: {},
+    internal: {},
+    user: {},
   });
-  const [getSchool] = useGetSchoolMutation();
+  const [getSchool] = useGetSchoolLazyQuery();
   const [login] = useLoginMutation();
-  const [updateUser] = useUpdateUserMutation();
-  const { user, setUser } = useUser();
-  const { setGlobalError } = useGlobalError();
+  const [update] = useUpdateUserMutation();
+  const [me] = useMeLazyQuery();
+  const { setUser } = useUser();
+  const { setAuthFlow } = useAuthFlow();
   const { setLoading } = useLoading();
 
-  useEffect(() => console.log("Objects:", { auth, user }), [auth, user]);
+  useEffect(() => console.log("Auth:", { auth }), [auth]);
 
-  const updateData = <Key extends keyof AuthProps>(
+  const updateExternal = <Key extends keyof External>(
+    key: Key,
+    payload: External[Key]
+  ) => {
+    setAuth((prev) => ({ ...prev, external: { [key]: payload } }));
+  };
+
+  const updateAuth = <Key extends keyof AuthProps>(
     key: Key,
     payload: AuthProps[Key]
   ) => {
     setAuth((prev) => ({ ...prev, [key]: payload }));
   };
 
-  const executeFunction = useCallback(
-    async (fn: Function, payload?: AuthProps) => {
+  const handleMe = useCallback(async () => {
+    setLoading(true);
+
+    try {
+      const data = await me();
+
+      if (!data?.error && data?.data?.me?.user?.username) {
+        const { uuid, username, amount } = data.data.me.user;
+
+        setUser({ uuid, username, amount, isCompleted: true });
+      } else if (!data?.error && data?.data?.me?.user?.uuid) {
+        const { uuid, amount } = data.data.me.user;
+
+        updateAuth("user", { uuid, amount });
+        updateAuth("internal", { hasUsername: false });
+        setAuthFlow({ step: AuthFlowSteps.Profile });
+      }
+    } catch {}
+
+    setLoading(false);
+  }, [me, setAuthFlow, setLoading, setUser]);
+
+  const onSchoolSubmit = useCallback(
+    async (schoolId: string) => {
       setLoading(true);
 
-      await fn(payload);
+      try {
+        const data = await getSchool({ variables: { schoolId } });
+
+        if (data?.error || !data?.data) {
+          return setAuthFlow({
+            step: AuthFlowSteps.School,
+            error: "Invalid School ID",
+          });
+        }
+
+        updateAuth("internal", {
+          emailPolicy: data.data.getSchool.emailPolicy,
+        });
+        setAuthFlow({ step: AuthFlowSteps.Email });
+      } catch {
+        return setAuthFlow({
+          step: AuthFlowSteps.School,
+          error: "Invalid School ID",
+        });
+      }
 
       setLoading(false);
     },
-    [setLoading]
+    [getSchool, setAuthFlow, setLoading]
   );
 
-  const loadUser = useCallback(async () => {
-    const isLoggedIn = await magic().user.isLoggedIn();
-
-    if (isLoggedIn) {
-      const didToken = await magic().user.getIdToken();
-
-      if (didToken) {
-        updateData("isLoggedIn", isLoggedIn);
-        updateData("didToken", didToken);
-      }
-    }
-  }, []);
-
-  const getEmailPolicy = useCallback(
-    async (payload: AuthProps) => {
-      const { schoolId } = payload;
-
-      let data: FetchResult<
-        GetSchoolMutation,
-        Record<string, any>,
-        Record<string, any>
-      >;
+  const onEmailSubmit = useCallback(
+    async (email: string, schoolId: string) => {
+      setLoading(true);
 
       try {
-        data = await getSchool({ variables: { schoolId } });
-      } catch {
-        return setGlobalError({ key: "school", message: "Invalid school ID" });
-      }
+        const didToken = await magic().auth.loginWithMagicLink({ email });
 
-      if (data?.errors || !data?.data) {
-        return setGlobalError({ key: "school", message: "Invalid School ID" });
-      }
+        const data = await login({
+          variables: { schoolId },
+          context: { headers: { Authorization: "Bearer " + didToken } },
+        });
 
-      updateData("emailPolicy", data.data.getSchool.emailPolicy);
-    },
-    [getSchool, setGlobalError]
-  );
+        if (!data?.errors && data?.data?.login?.user?.username) {
+          const { uuid, username, amount } = data.data.login.user;
 
-  const loginWithMagic = useCallback(
-    async (payload: AuthProps) => {
-      const { schoolId, email } = payload;
+          console.log(data.data.login.user);
 
-      const didToken = await magic().auth.loginWithMagicLink({ email });
+          setUser({ uuid, username, amount, isCompleted: true });
+        } else if (!data?.errors && data?.data?.login?.user?.uuid) {
+          const { uuid, amount } = data.data.login.user;
 
-      setItem("token", didToken);
-
-      try {
-        const data = await login({ variables: { schoolId } });
-
-        if (data?.data.login.user.username) {
-          updateData("username", data.data.login.user.username);
-          updateData("hasUsername", true);
+          updateAuth("user", { uuid, amount });
+          updateAuth("internal", { hasUsername: false });
+          setAuthFlow({ step: AuthFlowSteps.Profile });
         }
-      } catch (e) {
-        console.log(e);
-      }
+      } catch {}
 
-      updateData("didToken", didToken);
-      updateData("isLoggedIn", await magic().user.isLoggedIn());
+      setLoading(false);
     },
-    [login]
+    [login, setAuthFlow, setLoading, setUser]
   );
 
-  const updateUsername = useCallback(
-    async (payload: AuthProps) => {
-      const { username } = payload;
+  const onUsernameSubmit = useCallback(
+    async (username: string) => {
+      setLoading(true);
 
       try {
-        const data = await updateUser({ variables: { username } });
+        const data = await update({
+          variables: { username },
+        });
 
-        if (data?.data?.updateUser.user.username) {
-          updateData("username", data.data.updateUser.user.username);
-          updateData("hasUsername", true);
+        if (!data?.errors && data?.data?.updateUser?.user?.username) {
+          const { uuid, username, amount } = data.data.updateUser.user;
+
+          setUser({ uuid, username, amount, isCompleted: true });
+        } else if (!data?.errors && data?.data?.updateUser?.user?.uuid) {
+          setAuthFlow({
+            step: AuthFlowSteps.Profile,
+            error: "Error creating username",
+          });
         }
-      } catch (e) {
-        console.log(e);
-      }
+      } catch {}
+
+      setLoading(false);
     },
-    [updateUser]
+    [setAuthFlow, setLoading, setUser, update]
   );
 
   useEffect(() => {
-    // executeFunction(loadUser);
-
-    if (auth?.schoolId && !auth?.emailPolicy) {
-      executeFunction(getEmailPolicy, auth);
-    } else if (auth?.schoolId && auth?.email && !auth?.didToken) {
-      executeFunction(loginWithMagic, auth);
-    } else if (!auth?.hasUsername && auth?.username) {
-      executeFunction(updateUsername, auth);
-    }
-  }, [
-    auth,
-    executeFunction,
-    getEmailPolicy,
-    loadUser,
-    loginWithMagic,
-    updateUsername,
-  ]);
+    handleMe();
+  }, []);
 
   return (
-    <AuthContext.Provider value={[auth, updateData]}>
+    <AuthContext.Provider
+      value={[
+        auth,
+        updateExternal,
+        onSchoolSubmit,
+        onEmailSubmit,
+        onUsernameSubmit,
+      ]}
+    >
       {children}
     </AuthContext.Provider>
   );

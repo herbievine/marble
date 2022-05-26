@@ -29,14 +29,8 @@ export type LoginAuthDto = {
 
 export type Mutation = {
   __typename?: 'Mutation';
-  getSchool: SchoolEntity;
   login: AuthenticatedUser;
   updateUser: AuthenticatedUser;
-};
-
-
-export type MutationGetSchoolArgs = {
-  payload: SchoolPolicyDto;
 };
 
 
@@ -51,7 +45,13 @@ export type MutationUpdateUserArgs = {
 
 export type Query = {
   __typename?: 'Query';
-  sayHello: Scalars['String'];
+  getSchool: SchoolEntity;
+  me: AuthenticatedUser;
+};
+
+
+export type QueryGetSchoolArgs = {
+  payload: SchoolPolicyDto;
 };
 
 export type SchoolEntity = {
@@ -75,7 +75,7 @@ export type UserEntity = {
   __typename?: 'UserEntity';
   amount: Scalars['Float'];
   createdAt: Scalars['DateTime'];
-  didToken: Scalars['String'];
+  publicAddress: Scalars['String'];
   school: SchoolEntity;
   schoolId: Scalars['Float'];
   updatedAt: Scalars['DateTime'];
@@ -90,6 +90,11 @@ export type LoginMutationVariables = Exact<{
 
 export type LoginMutation = { __typename?: 'Mutation', login: { __typename?: 'AuthenticatedUser', user: { __typename?: 'UserEntity', uuid: string, username?: string | null, amount: number } } };
 
+export type MeQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type MeQuery = { __typename?: 'Query', me: { __typename?: 'AuthenticatedUser', user: { __typename?: 'UserEntity', uuid: string, username?: string | null, amount: number } } };
+
 export type UpdateUserMutationVariables = Exact<{
   username: Scalars['String'];
 }>;
@@ -97,12 +102,12 @@ export type UpdateUserMutationVariables = Exact<{
 
 export type UpdateUserMutation = { __typename?: 'Mutation', updateUser: { __typename?: 'AuthenticatedUser', user: { __typename?: 'UserEntity', uuid: string, username?: string | null, amount: number } } };
 
-export type GetSchoolMutationVariables = Exact<{
+export type GetSchoolQueryVariables = Exact<{
   schoolId: Scalars['String'];
 }>;
 
 
-export type GetSchoolMutation = { __typename?: 'Mutation', getSchool: { __typename?: 'SchoolEntity', emailPolicy: string } };
+export type GetSchoolQuery = { __typename?: 'Query', getSchool: { __typename?: 'SchoolEntity', emailPolicy: string } };
 
 
 export const LoginDocument = gql`
@@ -142,6 +147,44 @@ export function useLoginMutation(baseOptions?: Apollo.MutationHookOptions<LoginM
 export type LoginMutationHookResult = ReturnType<typeof useLoginMutation>;
 export type LoginMutationResult = Apollo.MutationResult<LoginMutation>;
 export type LoginMutationOptions = Apollo.BaseMutationOptions<LoginMutation, LoginMutationVariables>;
+export const MeDocument = gql`
+    query Me {
+  me {
+    user {
+      uuid
+      username
+      amount
+    }
+  }
+}
+    `;
+
+/**
+ * __useMeQuery__
+ *
+ * To run a query within a React component, call `useMeQuery` and pass it any options that fit your needs.
+ * When your component renders, `useMeQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useMeQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useMeQuery(baseOptions?: Apollo.QueryHookOptions<MeQuery, MeQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<MeQuery, MeQueryVariables>(MeDocument, options);
+      }
+export function useMeLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<MeQuery, MeQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<MeQuery, MeQueryVariables>(MeDocument, options);
+        }
+export type MeQueryHookResult = ReturnType<typeof useMeQuery>;
+export type MeLazyQueryHookResult = ReturnType<typeof useMeLazyQuery>;
+export type MeQueryResult = Apollo.QueryResult<MeQuery, MeQueryVariables>;
 export const UpdateUserDocument = gql`
     mutation UpdateUser($username: String!) {
   updateUser(payload: {username: $username}) {
@@ -180,35 +223,37 @@ export type UpdateUserMutationHookResult = ReturnType<typeof useUpdateUserMutati
 export type UpdateUserMutationResult = Apollo.MutationResult<UpdateUserMutation>;
 export type UpdateUserMutationOptions = Apollo.BaseMutationOptions<UpdateUserMutation, UpdateUserMutationVariables>;
 export const GetSchoolDocument = gql`
-    mutation GetSchool($schoolId: String!) {
+    query GetSchool($schoolId: String!) {
   getSchool(payload: {schoolId: $schoolId}) {
     emailPolicy
   }
 }
     `;
-export type GetSchoolMutationFn = Apollo.MutationFunction<GetSchoolMutation, GetSchoolMutationVariables>;
 
 /**
- * __useGetSchoolMutation__
+ * __useGetSchoolQuery__
  *
- * To run a mutation, you first call `useGetSchoolMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useGetSchoolMutation` returns a tuple that includes:
- * - A mutate function that you can call at any time to execute the mutation
- * - An object with fields that represent the current status of the mutation's execution
+ * To run a query within a React component, call `useGetSchoolQuery` and pass it any options that fit your needs.
+ * When your component renders, `useGetSchoolQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
  *
- * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const [getSchoolMutation, { data, loading, error }] = useGetSchoolMutation({
+ * const { data, loading, error } = useGetSchoolQuery({
  *   variables: {
  *      schoolId: // value for 'schoolId'
  *   },
  * });
  */
-export function useGetSchoolMutation(baseOptions?: Apollo.MutationHookOptions<GetSchoolMutation, GetSchoolMutationVariables>) {
+export function useGetSchoolQuery(baseOptions: Apollo.QueryHookOptions<GetSchoolQuery, GetSchoolQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<GetSchoolMutation, GetSchoolMutationVariables>(GetSchoolDocument, options);
+        return Apollo.useQuery<GetSchoolQuery, GetSchoolQueryVariables>(GetSchoolDocument, options);
       }
-export type GetSchoolMutationHookResult = ReturnType<typeof useGetSchoolMutation>;
-export type GetSchoolMutationResult = Apollo.MutationResult<GetSchoolMutation>;
-export type GetSchoolMutationOptions = Apollo.BaseMutationOptions<GetSchoolMutation, GetSchoolMutationVariables>;
+export function useGetSchoolLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<GetSchoolQuery, GetSchoolQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<GetSchoolQuery, GetSchoolQueryVariables>(GetSchoolDocument, options);
+        }
+export type GetSchoolQueryHookResult = ReturnType<typeof useGetSchoolQuery>;
+export type GetSchoolLazyQueryHookResult = ReturnType<typeof useGetSchoolLazyQuery>;
+export type GetSchoolQueryResult = Apollo.QueryResult<GetSchoolQuery, GetSchoolQueryVariables>;

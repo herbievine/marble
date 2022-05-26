@@ -1,8 +1,9 @@
 import DOMPurify from "dompurify";
 import React, { useEffect, useState } from "react";
 import { AuthProps } from "../../contexts/Auth";
+import { AuthFlowSteps } from "../../contexts/AuthFlow";
 import { useAuth } from "../../hooks/useAuth";
-import { useGlobalError } from "../../hooks/useGlobalError";
+import { useAuthFlow } from "../../hooks/useAuthFlow";
 import Auth from "../../layouts/Auth";
 import { magic } from "../../lib/magic";
 
@@ -10,8 +11,8 @@ interface ProfileProps {}
 
 const Profile: React.FC<ProfileProps> = () => {
   const [username, setUsername] = useState("");
-  const { globalError, setGlobalError } = useGlobalError();
-  const { updateData } = useAuth();
+  const { authFlow, setAuthFlow } = useAuthFlow();
+  const { updateExternal, onUsernameSubmit } = useAuth();
 
   const onChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = evt.target;
@@ -23,12 +24,19 @@ const Profile: React.FC<ProfileProps> = () => {
     const usernameRegex = /^[a-zA-Z0-9]\w+$/g;
 
     if (!username) {
-      return setGlobalError({ key: "username", message: "Username empty" });
+      return setAuthFlow({
+        step: AuthFlowSteps.Profile,
+        error: "Username empty",
+      });
     } else if (!usernameRegex.test(username)) {
-      return setGlobalError({ key: "username", message: "Invalid username" });
+      return setAuthFlow({
+        step: AuthFlowSteps.Profile,
+        error: "Invalid username",
+      });
     }
 
-    updateData("username", username);
+    updateExternal("username", username);
+    onUsernameSubmit(username);
   };
 
   return (
@@ -37,7 +45,7 @@ const Profile: React.FC<ProfileProps> = () => {
       placeholder="Sponge Bob"
       defaultValue={username}
       onChange={onChange}
-      error={globalError?.key === "username" ? globalError.message : ""}
+      error={authFlow.error}
       next={onClick}
     />
   );

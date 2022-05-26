@@ -8,7 +8,7 @@ export type LoadingContext = [
 export const LoadingContext = React.createContext<LoadingContext>([]);
 
 const LoadingProvider: React.FC<{}> = ({ children }) => {
-  const [loading, setLoading] = useState(false);
+  const [loading, setLoading] = useState(true);
 
   return (
     <LoadingContext.Provider value={[loading, setLoading]}>

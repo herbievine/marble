@@ -2,19 +2,16 @@ import React, { useState } from "react";
 import DOMPurify from "dompurify";
 import Auth from "../../layouts/Auth";
 import { useAuth } from "../../hooks/useAuth";
-import {
-  GetSchoolMutation,
-  useGetSchoolMutation,
-} from "../../generated/graphql";
 import { FetchResult } from "@apollo/client";
-import { useGlobalError } from "../../hooks/useGlobalError";
+import { useAuthFlow } from "../../hooks/useAuthFlow";
+import { AuthFlowSteps } from "../../contexts/AuthFlow";
 
 interface SchoolProps {}
 
 const School: React.FC<SchoolProps> = () => {
   const [schoolId, setSchoolId] = useState("");
-  const { globalError, setGlobalError } = useGlobalError();
-  const { updateData } = useAuth();
+  const { authFlow, setAuthFlow } = useAuthFlow();
+  const { updateExternal, onSchoolSubmit } = useAuth();
 
   const onChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = evt.target;
@@ -26,12 +23,19 @@ const School: React.FC<SchoolProps> = () => {
     const schoolIdRegex = /^[0-9]{4}$/g;
 
     if (!schoolId) {
-      return setGlobalError({ key: "school", message: "School ID empty" });
+      return setAuthFlow({
+        step: AuthFlowSteps.School,
+        error: "School ID empty",
+      });
     } else if (!schoolIdRegex.test(schoolId)) {
-      return setGlobalError({ key: "school", message: "Invalid school ID" });
+      return setAuthFlow({
+        step: AuthFlowSteps.School,
+        error: "Invalid school ID",
+      });
     }
 
-    updateData("schoolId", schoolId);
+    updateExternal("schoolId", schoolId);
+    onSchoolSubmit(schoolId);
   };
 
   return (
@@ -40,7 +44,7 @@ const School: React.FC<SchoolProps> = () => {
       placeholder="3872"
       defaultValue={schoolId}
       onChange={onChange}
-      error={globalError?.key === "school" ? globalError.message : ""}
+      error={authFlow.error}
       next={onClick}
     />
   );

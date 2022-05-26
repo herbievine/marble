@@ -5,7 +5,7 @@ import { serialize } from "cookie";
 
 const login = async (req: NextApiRequest, res: NextApiResponse) => {
   try {
-    const didToken = req.headers.authorization.substr(7);
+    const didToken = req.headers.authorization.substring(7);
 
     const magic = new Magic(process.env.MAGIC_SECRET);
 
@@ -18,7 +18,7 @@ const login = async (req: NextApiRequest, res: NextApiResponse) => {
         ...metadata,
         exp: Math.floor(Date.now() / 1000) + 60 * 60 * 24 * 30,
       },
-      process.env.JWT_SECRET
+      "secret"
     );
 
     const cookie = serialize("jwt", jwt);

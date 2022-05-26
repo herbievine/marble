@@ -4,8 +4,9 @@ import AuthProvider from "../contexts/Auth";
 import "../styles/globals.css";
 import { ApolloProvider } from "@apollo/client";
 import { client } from "../lib/apollo";
-import GlobalErrorProvider from "../contexts/GlobalError";
 import UserProvider from "../contexts/User";
+import AuthFlowProvider from "../contexts/AuthFlow";
+import ModalProvider from "../contexts/Modal";
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
   // useEffect(() => {
@@ -15,13 +16,15 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <ApolloProvider client={client}>
       <LoadingProvider>
-        <GlobalErrorProvider>
+        <AuthFlowProvider>
           <UserProvider>
             <AuthProvider>
-              <Component {...pageProps} />
+              <ModalProvider>
+                <Component {...pageProps} />
+              </ModalProvider>
             </AuthProvider>
           </UserProvider>
-        </GlobalErrorProvider>
+        </AuthFlowProvider>
       </LoadingProvider>
     </ApolloProvider>
   );

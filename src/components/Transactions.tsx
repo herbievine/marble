@@ -1,5 +1,4 @@
-import React, { useState } from "react";
-import { useUser } from "../hooks/useAuth";
+import React, { useEffect, useState } from "react";
 import dayjs from "dayjs";
 
 interface TransactionsProps {
@@ -8,7 +7,19 @@ interface TransactionsProps {
 
 const Transactions: React.FC<TransactionsProps> = ({ className }) => {
   const [limit, setLimit] = useState(3);
-  const { user } = useUser();
+  const [data, setData] = useState(null);
+
+  const fetchData = async () => {
+    const res = await (await fetch("/data.json")).json();
+
+    console.log(res?.data[0]?.transactions);
+
+    setData(res?.data[0]?.transactions);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <div className={className}>
@@ -18,25 +29,26 @@ const Transactions: React.FC<TransactionsProps> = ({ className }) => {
         </div>
         <table className="w-full shadow-none">
           <tbody>
-            {user.transactions
-              .sort(
-                ({ timestamp: a }, { timestamp: b }) =>
-                  dayjs(b).unix() - dayjs(a).unix()
-              )
-              .slice(0, limit)
-              .map((tx, i) => (
-                <tr key={i} className="px-4 flex justify-between">
-                  <td className="pt-3">
-                    {dayjs(tx.timestamp).format("DD/MM/YY")}
-                  </td>
-                  <td className="pt-3">
-                    {tx.type === "COLLECT"
-                      ? `+£${(tx.amount / 100).toFixed(2)}`
-                      : `-£${(tx.amount / 100).toFixed(2)}`}
-                  </td>
-                </tr>
-              ))}
-            {limit <= user.transactions.length - 1 && (
+            {data &&
+              data
+                .sort(
+                  ({ timestamp: a }, { timestamp: b }) =>
+                    dayjs(b).unix() - dayjs(a).unix()
+                )
+                .slice(0, limit)
+                .map((tx, i) => (
+                  <tr key={i} className="px-4 flex justify-between">
+                    <td className="pt-3">
+                      {dayjs(tx.timestamp).format("DD/MM/YY")}
+                    </td>
+                    <td className="pt-3">
+                      {tx.type === "COLLECT"
+                        ? `+£${(tx.amount / 100).toFixed(2)}`
+                        : `-£${(tx.amount / 100).toFixed(2)}`}
+                    </td>
+                  </tr>
+                ))}
+            {data && limit <= data.length - 1 && (
               <tr className="px-4 flex justify-between">
                 <td
                   className="pt-3 cursor-pointer"

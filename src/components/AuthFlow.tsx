@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
+import { AuthFlowSteps } from "../contexts/AuthFlow";
 import { useAuth } from "../hooks/useAuth";
+import { useAuthFlow } from "../hooks/useAuthFlow";
 import Email from "./auth/Email";
 import Profile from "./auth/Profile";
 import School from "./auth/School";
@@ -8,11 +10,11 @@ import Loader from "./Loader";
 interface AuthFlowProps {}
 
 const AuthFlow: React.FC<AuthFlowProps> = () => {
-  const { auth } = useAuth();
+  const { authFlow } = useAuthFlow();
 
-  if (auth?.schoolId && auth?.emailPolicy && !auth?.isLoggedIn) {
+  if (authFlow.step === AuthFlowSteps.Email) {
     return <Email />;
-  } else if (auth?.email && auth?.isLoggedIn && !auth?.username) {
+  } else if (authFlow.step === AuthFlowSteps.Profile) {
     return <Profile />;
   }
 

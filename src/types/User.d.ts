@@ -5,7 +5,6 @@ export interface BasicUser {
   uuid: string;
   username: string;
   amount: number;
-  [string]: string;
   // departmentId: string;
   // leaderboard: Leaderboard[];
   // transactions: Transaction[];

@@ -1,18 +1,18 @@
 import React from "react";
-import { useAuth } from "../hooks/useAuth";
+import { useUser } from "../hooks/useUser";
 
 interface OverviewProps {
   className?: string;
 }
 
 const Overview: React.FC<OverviewProps> = ({ className }) => {
-  const { auth } = useAuth();
+  const { user } = useUser();
 
   return (
     <div className={className}>
       <div className="flex justify-between items-center text-lg">
-        <p>Hello {auth.username}</p>
-        <p>£27.34</p>
+        <p>Hello {user.username}</p>
+        <p>£{(user.amount / 100).toFixed(2)}</p>
       </div>
     </div>
   );

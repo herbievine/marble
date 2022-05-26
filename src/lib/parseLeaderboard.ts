@@ -12,14 +12,10 @@ const parseLeaderboard = (
     ({ uuid }) => uuid === departmentId
   );
 
-  const positions = sortedLeaderboard
-    .filter(({ uuid }, index) => uuid === departmentId || index <= 2)
-    .map((ldb, index) => ({
-      ...ldb,
-      position: (ldb.uuid === departmentId ? currentPosition : index) + 1,
-    }));
-
-  return positions;
+  return sortedLeaderboard.map((ldb, index) => ({
+    ...ldb,
+    position: (ldb.uuid === departmentId ? currentPosition : index) + 1,
+  }));
 };
 
 export { parseLeaderboard };

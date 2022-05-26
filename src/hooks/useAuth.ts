@@ -3,17 +3,32 @@ import { AuthContext, AuthProps } from "../contexts/Auth";
 
 export interface AuthHook {
   auth: AuthContext[0];
-  updateData: AuthContext[1];
+  updateExternal: AuthContext[1];
+  onSchoolSubmit: AuthContext[2];
+  onEmailSubmit: AuthContext[3];
+  onUsernameSubmit: AuthContext[4];
 }
 
 const useAuth = (): AuthHook => {
-  const [auth, updateData] = useContext(AuthContext);
+  const [
+    auth,
+    updateExternal,
+    onSchoolSubmit,
+    onEmailSubmit,
+    onUsernameSubmit,
+  ] = useContext(AuthContext);
 
-  if (!updateData) {
+  if (!updateExternal) {
     throw new Error("UserContext needs to be initialized");
   }
 
-  return { auth, updateData };
+  return {
+    auth,
+    updateExternal,
+    onSchoolSubmit,
+    onEmailSubmit,
+    onUsernameSubmit,
+  };
 };
 
 export { useAuth };

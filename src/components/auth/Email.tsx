@@ -2,14 +2,15 @@ import React, { useState } from "react";
 import DOMPurify from "dompurify";
 import Auth from "../../layouts/Auth";
 import { useAuth } from "../../hooks/useAuth";
-import { useGlobalError } from "../../hooks/useGlobalError";
+import { useAuthFlow } from "../../hooks/useAuthFlow";
+import { AuthFlowSteps } from "../../contexts/AuthFlow";
 
 interface CredentialsProps {}
 
 const Credentials: React.FC<CredentialsProps> = () => {
   const [email, setEmail] = useState("");
-  const { globalError, setGlobalError } = useGlobalError();
-  const { updateData, auth } = useAuth();
+  const { authFlow, setAuthFlow } = useAuthFlow();
+  const { updateExternal, auth, onEmailSubmit } = useAuth();
 
   const onChange = (evt: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = evt.target;
@@ -18,15 +19,25 @@ const Credentials: React.FC<CredentialsProps> = () => {
   };
 
   const onClick = async () => {
-    const emailRegex = new RegExp(auth.emailPolicy);
+    const emailRegex = new RegExp(auth.internal.emailPolicy);
 
     if (!email) {
-      return setGlobalError({ key: "email", message: "Email empty" });
+      return setAuthFlow({
+        step: AuthFlowSteps.Email,
+        error: "Email empty",
+      });
     } else if (!emailRegex.test(email)) {
-      return setGlobalError({ key: "email", message: "Invalid email" });
+      return setAuthFlow({
+        step: AuthFlowSteps.Email,
+        error: "Invalid email",
+      });
     }
 
-    updateData("email", email);
+    updateExternal("email", email);
+
+    const { schoolId } = auth.external;
+
+    onEmailSubmit(email, schoolId);
   };
 
   return (
@@ -35,7 +46,7 @@ const Credentials: React.FC<CredentialsProps> = () => {
       placeholder="xy123456@hc.ac.je"
       defaultValue={email}
       onChange={onChange}
-      error={globalError?.key === "email" ? globalError.message : ""}
+      error={authFlow.error}
       next={onClick}
     />
   );

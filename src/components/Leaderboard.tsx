@@ -1,13 +1,33 @@
 import dayjs from "dayjs";
-import React from "react";
-import { useUser } from "../hooks/useAuth";
+import React, { useEffect, useState } from "react";
+import { parseLeaderboard } from "../lib/parseLeaderboard";
 
 interface LeaderboardProps {
   className?: string;
 }
 
 const Leaderboard: React.FC<LeaderboardProps> = ({ className }) => {
-  const { user } = useUser();
+  const [data, setData] = useState(null);
+  const depId = "fd1da9e0-3dd3-4a51-80ae-5c6b60acfdba";
+
+  const fetchData = async () => {
+    const res = await (await fetch("/data.json")).json();
+
+    console.log(res?.data[0]?.leaderboard);
+
+    const parsedLeaderboard = parseLeaderboard(
+      depId,
+      res?.data[0]?.leaderboard
+    );
+
+    console.log(parsedLeaderboard);
+
+    setData(parsedLeaderboard);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <div className={className}>
@@ -17,21 +37,22 @@ const Leaderboard: React.FC<LeaderboardProps> = ({ className }) => {
         </div>
         <table className="w-full shadow-none">
           <tbody>
-            {user.leaderboard
-              .sort(({ amount: a }, { amount: b }) => b - a)
-              .map((dep) => (
-                <tr
-                  key={dep.position}
-                  className={`px-4 flex justify-between ${
-                    dep.uuid === user.departmentId && "text-[#83AB2E]"
-                  }`}
-                >
-                  <td className="pt-3">#{dep.position}</td>
-                  <td className="pt-3">
-                    {dep.title} (£{(dep.amount / 100).toFixed(2)})
-                  </td>
-                </tr>
-              ))}
+            {data &&
+              data
+                .sort(({ amount: a }, { amount: b }) => b - a)
+                .map((dep) => (
+                  <tr
+                    key={dep.position}
+                    className={`px-4 flex justify-between ${
+                      dep.uuid === depId && "text-[#83AB2E]"
+                    }`}
+                  >
+                    <td className="pt-3">#{dep.position}</td>
+                    <td className="pt-3">
+                      {dep.title} (£{(dep.amount / 100).toFixed(2)})
+                    </td>
+                  </tr>
+                ))}
           </tbody>
         </table>
       </div>
