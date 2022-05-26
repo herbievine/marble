@@ -1,0 +1,5 @@
+query GetSchool($schoolId: String!) {
+  getSchool(payload: { schoolId: $schoolId }) {
+    emailPolicy
+  }
+}

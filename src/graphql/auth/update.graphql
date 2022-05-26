@@ -1,0 +1,9 @@
+mutation UpdateUser($username: String!) {
+  updateUser(payload: { username: $username }) {
+    user {
+      uuid
+      username
+      amount
+    }
+  }
+}

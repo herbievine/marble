@@ -3,18 +3,17 @@ import { UserContext } from "../contexts/User";
 
 export interface UserHook {
   user: UserContext[0];
-  findUser: UserContext[1];
-  loading: UserContext[2];
+  setUser: UserContext[1];
 }
 
 const useUser = (): UserHook => {
-  const [user, findUser, loading] = useContext(UserContext);
+  const [user, setUser] = useContext(UserContext);
 
-  if (!findUser) {
+  if (!setUser) {
     throw new Error("UserContext needs to be initialized");
   }
 
-  return { user, findUser, loading };
+  return { user, setUser };
 };
 
 export { useUser };
